@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>
+    Find a trail to check the latest reported conditions, or to submit a new trail status.
+  </p>
+  <button ion-button (click)="goToTrails()">Find a Trail</button>
+
+  <p>
+    Or, find a trails near me!
+  </p>
+  <button ion-button (click)="getLocalTrails()">Get Local Trails</button>
+
+</ion-content>
