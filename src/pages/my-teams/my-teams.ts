@@ -20,8 +20,4 @@ export class MyTeamsPage {
     this.navCtrl.push(TournamentsPage);
   }
 
-  getLocalTrails(){
-    this.navCtrl.push(TeamsPage);
-  }
-
 }
