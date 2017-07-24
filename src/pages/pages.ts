@@ -5,3 +5,6 @@ export * from './team-detail/team-detail';
 export * from './tournaments/tournaments';
 export * from './team-home/team-home';
 export * from './standings/standings';
+export * from './map/map.page';
+export * from './geolocation/geolocation';
+export * from './camera/camera';

@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Take Photo</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button full (click)="takePicture()">Take Picture</button>
+  <ion-card *ngIf="imgSrc">
+    <img [src]="imgSrc"
+  </ion-card>
+
+</ion-content>

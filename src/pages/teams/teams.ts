@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, LoadingController, NavController, NavParams } from 'ionic-angular';
+import * as _ from 'lodash';
 
 import { TeamHomePage } from '../pages';
 import { TeamAPI } from '../../shared/shared';
@@ -10,9 +11,13 @@ import { TeamAPI } from '../../shared/shared';
   templateUrl: 'teams.html',
 })
 export class TeamsPage {
+  private allTeams: any;
+  private allTeamDivisions: any;
   selectedItem: any;
   teams = [];
-  tournaments: any;
+  queryText: string;
+  searchQuery: string = '';
+  items: string[];
 
   constructor(
     public navCtrl: NavController,
@@ -30,20 +35,36 @@ export class TeamsPage {
 
   ionViewDidLoad() {
     let selectedTourney = this.navParams.data;
-    this.teamApi.getTournamentData(selectedTourney.id).subscribe(data => {
-      this.teams = data.teams;
-    })
-
     let loader = this.loading.create({
       content: 'Dribbling...'
     })
 
     loader.present().then(() => {
-      this.teamApi.getTournaments().then(data => {
-        this.tournaments = data;
+      this.teamApi.getTournamentData(selectedTourney.id).subscribe(data => {
+        this.allTeams = data.teams;
+        this.allTeamDivisions =
+          _.chain(data.teams)
+          .groupBy('division')
+          .toPairs()
+          .map(item => _.zipObject(['divisionName', 'divisionTeams'], item))
+          .value();
+        this.teams = this.allTeamDivisions;
         loader.dismiss();
       })
     })
+  }
+
+  updateTeams() {
+    let queryTextLower = this.queryText.toLowerCase();
+    let filteredTeams = [];
+    _.forEach(this.allTeamDivisions, td => {
+      let teams = _.filter(td.divisionTeams, t => (<any>t).name.toLowerCase().includes(queryTextLower));
+      if (teams.length) {
+        filteredTeams.push({ divisionName: td.divisionName, divisionTeams: teams })
+      }
+    })
+
+    this.teams = filteredTeams;
   }
 
 }

@@ -6,9 +6,22 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
+    <!-- <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
+      </button>
+    </ion-list> -->
+    <ion-list>
+      <ion-list-header>Navigate</ion-list-header>
+      <button menuClose ion-item (click)="goHome()">Home</button>
+      <button menuClose ion-item (click)="goToTournaments()">Find a Tournament</button>
+      <button menuClose ion-item (click)="goLocation()">Find Me</button>
+      <button menuClose ion-item (click)="goTakePicture()">Take Photo</button>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>Favorites</ion-list-header>
+      <button menuClose ion-item *ngFor="let fav of favoriteTeams" (click)="goToTeam(fav)">
+        {{fav.team.name}}
       </button>
     </ion-list>
   </ion-content>
