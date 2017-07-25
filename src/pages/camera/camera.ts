@@ -7,7 +7,6 @@ import { Camera, CameraOptions } from 'ionic-native';
   templateUrl: 'camera.html',
 })
 export class CameraPage {
-  imgSrc: any;
 
   constructor(
     private loader: LoadingController) {

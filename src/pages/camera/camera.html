@@ -8,6 +8,6 @@
   <button ion-button full (click)="takePicture()">Take Picture</button>
   <ion-card *ngIf="imgSrc">
     <img [src]="imgSrc" />
+    <em>{{imgSrc}}</em>
   </ion-card>
-
 </ion-content>
