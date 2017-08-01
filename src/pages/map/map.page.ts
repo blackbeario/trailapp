@@ -27,7 +27,6 @@ export class MapPage {
       zoom: 12,
       markerLabel: games.location
     };
-
   }
 
   getDirections() {

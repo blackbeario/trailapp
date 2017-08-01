@@ -3,7 +3,7 @@ import { Events, LoadingController, Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { MyTeamsPage, TeamHomePage, TournamentsPage, GeolocationComponent, CameraPage } from '../pages/pages';
+import { WeatherPage, MyTeamsPage, TeamHomePage, TournamentsPage, GeolocationComponent, CameraPage } from '../pages/pages';
 import { TeamAPI, UserSettings } from '../shared/shared';
 
 @Component({
@@ -57,6 +57,10 @@ export class MyApp {
 
   goTakePicture() {
     this.nav.push(CameraPage);
+  }
+
+  checkWeather() {
+    this.nav.push(WeatherPage);
   }
 
   goToTeam(favorite) {

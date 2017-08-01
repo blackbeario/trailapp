@@ -8,8 +8,8 @@ import { AgmCoreModule } from '@agm/core';
 import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
-import { CameraPage, GeolocationComponent, MapPage, MyTeamsPage, GamePage, TeamDetailPage, TeamsPage, TournamentsPage, TeamHomePage, StandingsPage } from '../pages/pages';
-import { TeamAPI, SqlStorage, UserSettings } from '../shared/shared';
+import { CameraPage, GeolocationComponent, MapPage, MyTeamsPage, GamePage, TeamDetailPage, TeamsPage, TournamentsPage, TeamHomePage, StandingsPage, WeatherPage } from '../pages/pages';
+import { WeatherAPI, TeamAPI, SqlStorage, UserSettings } from '../shared/shared';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,7 +26,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TeamHomePage,
     StandingsPage,
     GeolocationComponent,
-    CameraPage
+    CameraPage,
+    WeatherPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +53,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StandingsPage,
     MapPage,
     GeolocationComponent,
-    CameraPage
+    CameraPage,
+    WeatherPage
   ],
   providers: [
     StatusBar,
@@ -62,6 +64,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SQLite,
     TeamAPI,
     Camera,
+    WeatherAPI,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
