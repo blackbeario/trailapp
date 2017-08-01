@@ -8,3 +8,4 @@ export * from './standings/standings';
 export * from './map/map.page';
 export * from './geolocation/geolocation';
 export * from './camera/camera';
+export * from './weather/weather'

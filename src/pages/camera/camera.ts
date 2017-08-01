@@ -16,8 +16,8 @@ export class CameraPage {
   takePicture() {
     let options: CameraOptions = {
       destinationType: Camera.DestinationType.FILE_URI,
-      encodingType: Camera.EncodingType.PNG,
-      mediaType: Camera.MediaType.PICTURE,
+      encodingType: Camera.EncodingType.JPEG,
+      mediaType: Camera.MediaType.ALLMEDIA,
       sourceType: Camera.PictureSourceType.CAMERA,
       targetHeight: 500,
       targetWidth: 500,
