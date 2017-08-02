@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Events, LoadingController, Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { WeatherPage, MyTeamsPage, TeamHomePage, TournamentsPage, GeolocationComponent, CameraPage } from '../pages/pages';
 import { TeamAPI, UserSettings } from '../shared/shared';

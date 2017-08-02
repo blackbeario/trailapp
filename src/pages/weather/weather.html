@@ -10,13 +10,21 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-row class="weather-search">
+    <form [formGroup]="searchForm" (ngSubmit)="getConditions($event)">
+      <label for="state">State</label>
+      <input formControlName="state" type="text" id="state" placeholder="State" required />
+      <label for="city">City</label>
+      <input formControlName="city" type="text" id="city" placeholder="City" required />
+      <button ion-button clear full type="submit">Add City</button>
+    </form>
+  </ion-row>
   <ion-card>
-    <ion-card-header *ngFor="let key('location') of keys">
-      <ion-item>{{weather.location.city | uppercase}}</ion-item>
-      <ion-item>{{key}}</ion-item>
+    <ion-card-header *ngFor="let key of keys">
+      <ion-item>City: {{weather.location.city}}</ion-item>
+      <ion-item>Feels like: {{weather.current_observation.feelslike_string}}</ion-item>
     </ion-card-header>
     <ion-card-content>
-      <!-- <p>{{weather[key].temp_f}}</p> -->
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -13,16 +13,20 @@ export class WeatherAPI {
 
   constructor(private http: Http) {}
 
-  getWeather() {
-    return new Promise(resolve => {
-      this.http.get(`${this.baseUrl}/q/IA/Cedar_Rapids.json`)
-      .subscribe(res => resolve(res.json()));
-      // .map((res: Response) => {
-      //   this.weatherData = res.json();
-      //   this.currentWeather = this.weatherData;
-      //   return this.currentWeather;
-      // })
-    })
+  // getWeather() {
+  //   return new Promise(resolve => {
+  //     this.http.get(`${this.baseUrl}/q/IA/Cedar_Rapids.json`)
+  //     .subscribe(res => resolve(res.json()));
+  //   })
+  // }
+
+  searchWeatherData(state: string, cityName: string) {
+      return this.http.get(`${this.baseUrl}/q/` + state + `/` + cityName + `.json`)
+        .map(response => response.json())
+        .catch(error => {
+          console.error(error);
+          return Observable.throw(error.json())
+        })
   }
 
   // getWeatherData(locationId, forceRefresh: boolean = false) : Observable<any> {
