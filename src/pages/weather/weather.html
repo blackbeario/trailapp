@@ -9,72 +9,61 @@
   </ion-navbar>
 </ion-header>
 
+<!-- Search Form -->
 <ion-content padding>
   <ion-row class="weather-search">
     <form [formGroup]="searchForm" (ngSubmit)="getConditions($event)">
-      <label for="state">State</label>
-      <input formControlName="state" type="text" id="state" placeholder="State" required />
-      <label for="city">City</label>
-      <input formControlName="city" type="text" id="city" placeholder="City" required />
-      <button ion-button clear full type="submit">Add City</button>
+      <ion-item>
+        <ion-input formControlName="state" type="text" id="state" placeholder="State" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="city" type="text" id="city" placeholder="City" required></ion-input>
+      </ion-item>
+      <button full ion-button icon-right type="submit">
+        Search City
+        <ion-icon name="search"></ion-icon>
+      </button>
     </form>
   </ion-row>
-  <ion-card>
-    <ion-card-header *ngFor="let key of keys">
-      <ion-item>City: {{weather.location.city}}</ion-item>
-      <ion-item>Feels like: {{weather.current_observation.feelslike_string}}</ion-item>
+
+  <!-- Results -->
+  <ion-card *ngIf="keys">
+    <ion-card-header *ngIf="currentLocation">
+      <ion-item>
+        <img class="weather-icon" alt={{weather.current_observation.icon}} src={{weather.current_observation.icon_url}}/>
+        {{weather.location.city}}, {{weather.location.state}}
+      </ion-item>
     </ion-card-header>
-    <ion-card-content>
+
+    <ion-card-content *ngIf="currentWeather">
+      <ion-row>
+        <ion-col>
+          <ion-item >
+            <ion-icon name="thermometer" item-left></ion-icon>
+            {{weather.current_observation.temp_f}}
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-icon alt="precipitation" name="md-beaker" item-left></ion-icon>
+            {{weather.current_observation.precip_today_in}}
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-icon alt="elevation" name="md-image" item-left></ion-icon>
+            {{weather.current_observation.observation_location.elevation}}
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-icon alt="forecast" name="md-calendar" item-left></ion-icon>
+            <a href={{weather.current_observation.forecast_url}}>forecast</a>
+          </ion-item>
+        </ion-col>
+      </ion-row>
     </ion-card-content>
   </ion-card>
 </ion-content>
-
-<!-- <ion-content [(*ngModel)]="let key of keys">
-    <ion-row>
-        <ion-col width-50 text-center class="divider-col">
-            <button ion-button clear full (click)="teamTapped(game.team1Id)">Home</button>
-        </ion-col>
-        <ion-col width-50 text-center>
-            <button ion-button clear full (click)="teamTapped(game.team2Id)">Away</button>
-        </ion-col>
-    </ion-row>
-    <ion-row center>
-        <ion-col width-50 text-center class="divider-col" (click)="teamTapped(game.team1Id)">
-            <h4>{{game.team1}}</h4>
-        </ion-col>
-        <ion-col width-50 text-center (click)="teamTapped(game.team2Id)">
-            <h4>{{game.team2}}</h4>
-        </ion-col>
-    </ion-row>
-    <ion-row baseline class="top-bottom-border">
-        <ion-col text-center (click)="teamTapped(game.team1Id)">
-            <h1 ion-text [color]="isWinner(game.team1Score, game.team2Score)">{{game.team1Score}}</h1>
-        </ion-col>
-        <ion-col text-center>
-            <ion-label>Score</ion-label>
-        </ion-col>
-        <ion-col text-center (click)="teamTapped(game.team2Id)">
-            <h1 ion-text [color]="isWinner(game.team2Score, game.team1Score)">{{game.team2Score}}</h1>
-        </ion-col>
-    </ion-row>
-
-    <ion-card>
-        <ion-item>
-            <ion-icon name="calendar" item-left></ion-icon>
-            {{game.gameTime | date:'M/d/yy'}} {{game.gameTime | date:'shortTime'}}
-        </ion-item>
-        <ion-row>
-            <ion-col width-60>
-                <ion-label>{{game.location}}</ion-label>
-            </ion-col>
-            <ion-col width-40 text-right>
-                <button ion-button icon-only outline (click)="goToMap()">
-                    <ion-icon name="map"></ion-icon>
-                </button>
-                <button ion-button icon-only outline (click)="getDirections()">
-                    <ion-icon name="navigate"></ion-icon>
-                </button>
-            </ion-col>
-        </ion-row>
-    </ion-card>
-</ion-content> -->

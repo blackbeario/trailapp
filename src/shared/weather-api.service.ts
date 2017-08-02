@@ -21,12 +21,12 @@ export class WeatherAPI {
   // }
 
   searchWeatherData(state: string, cityName: string) {
-      return this.http.get(`${this.baseUrl}/q/` + state + `/` + cityName + `.json`)
-        .map(response => response.json())
-        .catch(error => {
-          console.error(error);
-          return Observable.throw(error.json())
-        })
+    return this.http.get(`${this.baseUrl}/q/` + state + `/` + cityName + `.json`)
+      .map(response => response.json())
+      .catch(error => {
+        console.error(error);
+        return Observable.throw(error.json())
+      })
   }
 
   // getWeatherData(locationId, forceRefresh: boolean = false) : Observable<any> {

@@ -16,6 +16,7 @@ export class WeatherPage {
 
   weather: any = {};
   keys: String[];
+  currentLocation: any = {};
   currentWeather: any = {};
 
   constructor(
@@ -61,9 +62,10 @@ export class WeatherPage {
     this.weatherApi.searchWeatherData(formData.state, formData.city).subscribe(data => {
       this.weather = data;
       this.keys = Object.keys(this.weather);
+      let currentLocation = this.weather.location;
       let currentWeather = this.weather.current_observation;
 
-      console.log(currentWeather);
+      console.log(this.weather);
     })
   }
 
