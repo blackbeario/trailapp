@@ -10,16 +10,10 @@ export class WeatherAPI {
   private baseUrl = 'http://api.wunderground.com/api/0d60309ca21e4589/geolookup/conditions';
   private radarUrl = 'http://api.wunderground.com/api/0d60309ca21e4589/animatedradar';
   currentWeather: any = {};
-  // private weatherData = {};
+  currentRadar: any = {};
+  radar: any = {};
 
   constructor(private http: Http) {}
-
-  // getWeather() {
-  //   return new Promise(resolve => {
-  //     this.http.get(`${this.baseUrl}/q/IA/Cedar_Rapids.json`)
-  //     .subscribe(res => resolve(res.json()));
-  //   })
-  // }
 
   getWeatherData(state: string, cityName: string) {
     return this.http.get(`${this.baseUrl}/q/` + state + `/` + cityName + `.json`)
@@ -30,32 +24,17 @@ export class WeatherAPI {
       })
   }
 
-  getRadar(state: string, cityName: string) {
-    return this.http.get(`${this.radarUrl}/q/` + state + `/` + cityName + `.gif?newmaps=1&timelabel=1&timelabel.y=10&num=5&delay=25`)
+  getRadar(state: string, cityName: string) : Observable<any> {
+    this.currentRadar = this.http.get(`${this.radarUrl}/q/` + state + `/` + cityName + `.gif?newmaps=1&timelabel=1&timelabel.y=10&num=5&delay=25`)
+    return this.currentRadar;
   }
 
-  // getWeatherData(locationId, forceRefresh: boolean = false) : Observable<any> {
-  //   if (!forceRefresh && this.weatherData[locationId]) {
-  //     this.currentWeather = this.weatherData[locationId];
-  //     console.log('** no http call **')
-  //     return Observable.of(this.currentWeather);
-  //   }
-  //   // If no data yet go get it.
-  //   console.log('** making http call **')
-  //   return this.http.get(`${this.baseUrl}/tournaments-data/${locationId}.json`)
-  //   .map((response: Response) => {
-  //     this.weatherData[locationId] = response.json();
-  //     this.currentWeather = this.weatherData[locationId];
-  //     return this.currentWeather;
-  //   })
-  // }
-
-  // getCurrentTourney(){
-  //   return this.currentWeather;
-  // }
+  getCurrentRadar(){
+    return this.currentRadar;
+  }
 
   // refreshCurrent() {
-  //   return this.getWeatherData(this.currentWeather.location.id, true);
+  //   return this.getWeatherData(this.currentRadar);
   // }
 
 }
