@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 
 import 'rxjs';
 import { Observable } from 'rxjs/Observable';
@@ -8,8 +8,9 @@ import { Observable } from 'rxjs/Observable';
 export class WeatherAPI {
 
   private baseUrl = 'http://api.wunderground.com/api/0d60309ca21e4589/geolookup/conditions';
+  private radarUrl = 'http://api.wunderground.com/api/0d60309ca21e4589/animatedradar';
   currentWeather: any = {};
-  private weatherData = {};
+  // private weatherData = {};
 
   constructor(private http: Http) {}
 
@@ -20,13 +21,17 @@ export class WeatherAPI {
   //   })
   // }
 
-  searchWeatherData(state: string, cityName: string) {
+  getWeatherData(state: string, cityName: string) {
     return this.http.get(`${this.baseUrl}/q/` + state + `/` + cityName + `.json`)
       .map(response => response.json())
       .catch(error => {
         console.error(error);
         return Observable.throw(error.json())
       })
+  }
+
+  getRadar(state: string, cityName: string) {
+    return this.http.get(`${this.radarUrl}/q/` + state + `/` + cityName + `.gif?newmaps=1&timelabel=1&timelabel.y=10&num=5&delay=25`)
   }
 
   // getWeatherData(locationId, forceRefresh: boolean = false) : Observable<any> {

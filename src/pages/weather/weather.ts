@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 import { WeatherAPI } from '../../shared/shared';
-// import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'page-weather',
   templateUrl: 'weather.html',
 })
+
 export class WeatherPage {
   public searchForm = this.fb.group({
     state: ["", Validators.required],
@@ -15,9 +15,11 @@ export class WeatherPage {
   });
 
   weather: any = {};
+  radar: any = {};
   keys: String[];
   currentLocation: any = {};
   currentWeather: any = {};
+  radarVisible = false;
 
   constructor(
     public fb: FormBuilder,
@@ -59,14 +61,24 @@ export class WeatherPage {
 
   getConditions(event) {
     let formData = this.searchForm.value;
-    this.weatherApi.searchWeatherData(formData.state, formData.city).subscribe(data => {
+    // Get the conditions for the requested city.
+    this.weatherApi.getWeatherData(formData.state, formData.city).subscribe(data => {
       this.weather = data;
       this.keys = Object.keys(this.weather);
-      let currentLocation = this.weather.location;
-      let currentWeather = this.weather.current_observation;
-
-      console.log(this.weather);
+      // let currentLocation = this.weather.location;
+      // let currentWeather = this.weather.current_observation;
+      // console.log(this.weather);
     })
+
+    // Get the radar for the requested city.
+    this.weatherApi.getRadar(formData.state, formData.city).subscribe(data => {
+      this.radar = data;
+      // console.log(this.radar);
+    })
+  }
+
+  toggleRadar() {
+    this.radarVisible ? this.radarVisible = false : this.radarVisible = true;
   }
 
 }
