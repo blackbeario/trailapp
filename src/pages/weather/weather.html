@@ -65,11 +65,9 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-label>Show Radar</ion-label>
+        <ion-label>{{message}}</ion-label>
         <ion-toggle *ngIf="radar.url" (ionChange)="toggleRadar()"></ion-toggle>
-        <ion-item *ngIf="radarVisible" class="fade in">
-          <img class="radar" src={{radar.url}}/>
-        </ion-item>
+        <img *ngIf="radarVisible" class="radar" src={{radar.url}}/>
       </ion-row>
     </ion-card-content>
   </ion-card>

@@ -19,7 +19,9 @@ export class WeatherPage {
   keys: String[];
   currentLocation: any = {};
   currentWeather: any = {};
-  radarVisible = false;
+  radarVisible: boolean = false;
+  message: string = "Show Radar";
+
 
   constructor(
     public fb: FormBuilder,
@@ -65,8 +67,6 @@ export class WeatherPage {
     this.weatherApi.getWeatherData(formData.state, formData.city).subscribe(data => {
       this.weather = data;
       this.keys = Object.keys(this.weather);
-      // let currentLocation = this.weather.location;
-      // let currentWeather = this.weather.current_observation;
       // console.log(this.weather);
     })
 
@@ -79,6 +79,7 @@ export class WeatherPage {
 
   toggleRadar() {
     this.radarVisible ? this.radarVisible = false : this.radarVisible = true;
+    this.message = this.radarVisible ?  "Hide Radar" : "Show Radar"
   }
 
 }
