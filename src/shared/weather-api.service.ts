@@ -7,8 +7,9 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class WeatherAPI {
 
-  private baseUrl = 'http://api.wunderground.com/api/0d60309ca21e4589/geolookup/conditions';
+  private baseUrl = 'http://api.wunderground.com/api/0d60309ca21e4589/forecast/geolookup/conditions';
   private radarUrl = 'http://api.wunderground.com/api/0d60309ca21e4589/animatedradar';
+
   currentWeather: any = {};
   currentRadar: any = {};
   radar: any = {};
@@ -24,17 +25,9 @@ export class WeatherAPI {
       })
   }
 
-  getRadar(state: string, cityName: string) : Observable<any> {
-    this.currentRadar = this.http.get(`${this.radarUrl}/q/` + state + `/` + cityName + `.gif?newmaps=1&timelabel=1&timelabel.y=10&num=5&delay=25`)
+  getRadarData(state: string, cityName: string) : Observable<any> {
+    this.currentRadar = this.http.get(`${this.radarUrl}/q/` + state + `/` + cityName + `.gif?newmaps=1&timelabel=1&timelabel.y=10&num=5&noclutter=1&smooth=1&radius=25&delay=25`)
     return this.currentRadar;
   }
-
-  getCurrentRadar(){
-    return this.currentRadar;
-  }
-
-  // refreshCurrent() {
-  //   return this.getWeatherData(this.currentRadar);
-  // }
 
 }

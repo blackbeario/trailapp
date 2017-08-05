@@ -16,12 +16,15 @@ export class WeatherPage {
 
   weather: any = {};
   radar: any = {};
+  forecastData: any = {};
   keys: String[];
+  days: String[];
   currentLocation: any = {};
   currentWeather: any = {};
   radarVisible: boolean = false;
-  message: string = "Show Radar";
-
+  forecastVisible: boolean = false;
+  radarMessage: string = "Show Radar";
+  forecastMessage: string = "Show Forecast";
 
   constructor(
     public fb: FormBuilder,
@@ -41,28 +44,45 @@ export class WeatherPage {
     this.weatherApi.getWeatherData(formData.state, formData.city).subscribe(data => {
       this.weather = data;
       this.keys = Object.keys(this.weather);
+      this.days = Object.keys(this.weather.forecast.txt_forecast.forecastday);
+      console.log(this.weather);
     })
+    // Go ahead and make the other http calls. Kinda sucks to make 3 calls if we
+    // don't need them all, but the radar loads much faster this way on toggle.
+    // This also resets our radar in case the user chooses a new city.
+    this.getRadar();
+  }
+
+  toggleForecast() {
+    this.forecastVisible ? this.forecastVisible = false : this.forecastVisible = true;
+    this.forecastMessage = this.forecastVisible ?  "Hide Forecast" : "Show Forecast";
+  }
+
+  getRadar() {
+    let formData = this.searchForm.value;
+    // Get the radar for the requested city.
+    this.weatherApi.getRadarData(formData.state, formData.city).subscribe(data => {
+      this.radar = data;
+    })
+    console.log('** fetching radar **');
   }
 
   toggleRadar() {
     // If we haven't already loaded the radar data, go get it.
+    // In theory, this should always already be present.
     if (!this.radar._body) {
       let loader = this.loading.create({
-        content: 'Fetching Data...'
+        content: 'Fetching Radar...'
       })
       loader.present().then(() => {
-        let formData = this.searchForm.value;
-        // Get the radar for the requested city.
-        this.weatherApi.getRadar(formData.state, formData.city).subscribe(data => {
-          this.radar = data;
-        })
-        console.log('** fetching data **');
-        // The loader appears to be dismissing early, but actually the data is
-        // retrieved quickly, but the image hasn't loaded in the browser. Hmmm...
+        this.getRadar();
         loader.dismiss();
       })
     }
+    // This actually toggles the radar visibility.
     this.radarVisible ? this.radarVisible = false : this.radarVisible = true;
-    this.message = this.radarVisible ?  "Hide Radar" : "Show Radar";
+    // Toggles the toggle button label text.
+    this.radarMessage = this.radarVisible ?  "Hide Radar" : "Show Radar";
   }
+
 }

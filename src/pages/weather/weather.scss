@@ -9,4 +9,23 @@
   display: inline;
   vertical-align: middle;
   margin: 9px 16px 8px 0;
+  &.daily {
+    width: 35px;
+  }
+}
+
+.wind {
+  width: 24px;
+}
+
+.forecast-wrapper {
+  margin: 12px 0;
+
+  .forecast {
+    margin: 12px -16px -27px;
+  }
+}
+
+.daily .label {
+  white-space: normal;
 }

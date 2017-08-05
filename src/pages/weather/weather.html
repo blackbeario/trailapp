@@ -59,15 +59,25 @@
         </ion-col>
         <ion-col>
           <ion-item>
-            <ion-icon alt="forecast" name="md-calendar" item-left></ion-icon>
-            <a href={{weather.current_observation.forecast_url}}>forecast</a>
+            <img class="wind" alt="wind" src="../assets/icon/wind.png" item-left />
+            {{weather.current_observation.wind_mph}} mph
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-label>{{message}}</ion-label>
+      <ion-row class="radar-wrapper">
+        <ion-label>{{radarMessage}}</ion-label>
         <ion-toggle (ionChange)="toggleRadar()"></ion-toggle>
         <img *ngIf="radarVisible" class="radar" src={{radar.url}}/>
+      </ion-row>
+      <ion-row class="forecast-wrapper">
+        <ion-label>{{forecastMessage}}</ion-label>
+        <ion-toggle (ionChange)="toggleForecast()"></ion-toggle>
+        <ion-row *ngIf="forecastVisible" class="forecast">
+          <ion-list class="daily" *ngFor="let day of days">
+            <ion-item-divider>{{weather.forecast.txt_forecast.forecastday[day].title}} <img class="weather-icon daily" src={{weather.forecast.txt_forecast.forecastday[day].icon_url}}/></ion-item-divider>
+            <ion-item>{{weather.forecast.txt_forecast.forecastday[day].fcttext}}</ion-item>
+          </ion-list>
+        </ion-row>
       </ion-row>
     </ion-card-content>
   </ion-card>
